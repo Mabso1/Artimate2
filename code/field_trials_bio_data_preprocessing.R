@@ -571,7 +571,5 @@ p=ggplot(bio_long, aes(y = Genus, x =Abundance)) +
         axis.title.y = element_text(size = 14))
 
 
-library(cowplot)
-p2=add_sub(p, "(B)", y  = 0, vjust = 0)
-ggdraw(p2)
+p
 

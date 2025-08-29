@@ -129,14 +129,14 @@ e1e1 <- hima(Y ~dim.1+dim.2+dim.3+dim.4+dim.5,#+dim.6+dim.7+dim.8+dim.9+dim.10+d
 summary(e1e1)
 
 
-p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
+p_adj=p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
 
 list_dat$abiotic1=list_dat$abiotic
 list_dat$biotic_1=list_dat$biotic
 names(list_dat$abiotic1)=paste0("X",1:dim(list_dat$abiotic)[2])
 names(list_dat$biotic_1)= paste0("M", 1:dim(list_dat$biotic)[2])
 
-test_list1=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in%  e1e1$ID[e1e1$`p-value`<0.05])])
+test_list1=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in%  e1e1$ID[e1e1$`p_adj`<0.1])])
 
 
 # MCP run
@@ -158,9 +158,9 @@ list_dat$biotic_1=list_dat$biotic
 names(list_dat$abiotic1)=paste0("X",1:dim(list_dat$abiotic)[2])
 names(list_dat$biotic_1)= paste0("M", 1:dim(list_dat$biotic)[2])
 
-p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
+p_adj=p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
 
-test_list2=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in% e1e1$ID[e1e1$`p-value`<0.05])])
+test_list2=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in% e1e1$ID[p_adj<0.1])])
 
 # DBlasso run
 e1e1 <- hima(Y ~dim.1+dim.2+dim.3+dim.4+dim.5,#+dim.6+dim.7+dim.8+dim.9+dim.10+dim.11,#season.Summer+field_type.eco
@@ -176,14 +176,14 @@ e1e1 <- hima(Y ~dim.1+dim.2+dim.3+dim.4+dim.5,#+dim.6+dim.7+dim.8+dim.9+dim.10+d
 ) # Disabled only for simulation data
 summary(e1e1)
 
-p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
+p_adj=p.adjust(e1e1$`p-value`, method = "fdr",n=length(e1e1$`p-value`)) # check all Q.values are within FDR (HIMA does not do it by itself)
 
 list_dat$abiotic1=list_dat$abiotic
 list_dat$biotic_1=list_dat$biotic
 names(list_dat$abiotic1)=paste0("X",1:dim(list_dat$abiotic)[2])
 names(list_dat$biotic_1)= paste0("M", 1:dim(list_dat$biotic)[2])
 
-test_list3=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in% e1e1$ID[e1e1$`p-value`<0.05])])
+test_list3=names(list_dat$biotic_1[,which(names(list_dat$biotic) %in% e1e1$ID[p_adj<0.1])])
 
 # remove dublicates
 test_list_combo=unique(c(test_list1,test_list2,test_list3))
